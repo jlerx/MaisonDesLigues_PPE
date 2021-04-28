@@ -36,4 +36,24 @@ class SecurityController extends AbstractController
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
+
+    /**
+     * Renders the login template with the given parameters. Overwrite this function in
+     * an extended controller to provide additional data for the login template.
+     *
+     * @param array $data
+     *
+     * @return Response
+     */
+    protected function renderLogin(array $data)
+    {
+        /**
+         * If the user has already logged in (marked as is authenticated fully by symfony's security)
+         * then redirect this user back
+         */
+        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('index');
+        }
+        return $this->redirectToRoute('authentication_login');
+    }
 }

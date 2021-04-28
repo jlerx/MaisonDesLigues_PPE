@@ -15,13 +15,17 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: lazy
+            anonymous: false
             provider: app_user_provider
             guard:
                 authenticators:
                     - App\Security\LoginFormAuthentificatorAuthenticator
             logout:
+<<<<<<< HEAD
                 path: authentication_app_logout
+=======
+                path: authentication_logout
+>>>>>>> 38802849b901fc456412dbe57d1ae9a63bb694a3
                 # where to redirect after logout
                 # target: app_any_route
 
