@@ -16,9 +16,13 @@
     </head>
     <body>
         <div class="container" style="width:80%;">
-            {% include "elements/navbar.html.twig" %}
+            {% if app.request.get('_route') != 'authentication_login' %}
+                {% include "elements/navbar.html.twig" %}
+            {% endif %}
             {% block body %}{% endblock %}
-            {% include "elements/footer.html.twig" %}
+            {% if app.request.get('_route') != 'authentication_login' %}
+                {% include "elements/footer.html.twig" %}
+                {% endif %}
         </div>
     </body>
 </html>
