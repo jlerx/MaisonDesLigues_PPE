@@ -45,7 +45,7 @@ class SecurityController extends AbstractController
      *
      * @return Response
      */
-    protected function renderLogin(array $data)
+    public function renderLogin()
     {
         /**
          * If the user has already logged in (marked as is authenticated fully by symfony's security)
