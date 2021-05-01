@@ -8,27 +8,31 @@
     <div class="admin-page">
         <div class="container">
             <div class="row">
-                <div class="col s12 m-t-30">
-                    <h5>Utilisateurs</h5>
-                    <table>
-                        <tr>
-                            <th class="p-2">#</th>
-                            <th class="p-2">Numero Licence</th>
-                            <th class="p-2">Roles</th>
-                            <th class="p-2">Actions</th>
-                        </tr>
-                        {% set i = 1 %}
-                        {% for user in users %}
+                <div class="col s12 pt-5">
+                    <h3 class="m-2">Utilisateurs</h3>
+                    <table class="table table-bordered table-hover text-center">
+                        <thead>
                             <tr>
-                                <td class="p-2">{{ i }}</td>
-                                <td class="p-2">{{ user.numlicence }}</td>
-                                <td class="p-2">{{ user.roles[0] }}</td>
-                                <td class="p-2">
-                                    <a href=""><i class="material-icons red-text">delete</i></a>
-                                </td>
+                                <th class="p-2"></th>
+                                <th class="p-2">Numero Licence</th>
+                                <th class="p-2">Roles</th>
+                                <th class="p-2">Actions</th>
                             </tr>
-                            {% set i = i+1 %}
-                        {% endfor %}
+                        </thead>
+                        <tbody>
+                            {% set i = 1 %}
+                            {% for user in users %}
+                                <tr>
+                                    <td class="p-2">{{ i }}</td>
+                                    <td class="p-2">{{ user.numlicence }}</td>
+                                    <td class="p-2">{{ user.roles[0] }}</td>
+                                    <td class="p-2">
+                                        <a href=""><i class="material-icons red-text">delete</i></a>
+                                    </td>
+                                </tr>
+                                {% set i = i+1 %}
+                            {% endfor %}
+                        </tbody>
                     </table>
                 </div>
             </div>

@@ -7,6 +7,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+// Utile la recherche d'url image
+use Symfony\Component\Asset\UrlPackage;
+use Symfony\Component\Asset\VersionStrategy\StaticVersionStrategy;
+
 /**
  * @Route("/authentication", name="authentication")
  */
@@ -17,9 +21,9 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+         if ($this->getUser()) {
+             return $this->redirectToRoute('home');
+         }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -51,9 +55,21 @@ class SecurityController extends AbstractController
          * If the user has already logged in (marked as is authenticated fully by symfony's security)
          * then redirect this user back
          */
-        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return $this->redirectToRoute('index');
+        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
+            return $this->redirectToRoute('authentication_login');
         }
-        return $this->redirectToRoute('authentication_login');
+        return $this->redirectToRoute('home');
+    }
+
+    /**
+     * Fonction qui retourne l'url d'une image dans le dossier Public/Pictures/
+     * Parametre : prendre en compte l'extension a rechercher, exemple : getImage('lorem.png') ou getImage('lorem.jpg') retourne : 'http://mdl.sym/Pictures/lorem.png'
+     */
+    public function getImage($picName){
+        $urlPackage = new UrlPackage(
+            'http://mdl.sym/'
+            ,new StaticVersionStrategy('v1'));
+        $pathLogo = $urlPackage->getUrl('Pictures/'.$picName);
+        return $pathLogo;
     }
 }

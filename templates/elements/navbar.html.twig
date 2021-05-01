@@ -3,7 +3,7 @@
     
         <!-- Si l'utitisateur est connecté -->
         {% if app.user %}
-          <img src="assets/pictures/mdl.png" alt="image">
+          <img src="{{pathLogo}}" style="width:100px" alt="image">
         <a class="navbar-brand" href="#">{{ app.request.server.get('APP_NAME1') }} {{ app.request.server.get('APP_NAME2') }} {{ app.request.server.get('APP_NAME3') }}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -11,15 +11,26 @@
 
         <div class="collapse navbar-collapse" id="navbarColor02">
           <ul class="navbar-nav ml-auto">
+          {% if app.request.get('_route') == 'home' %}
             <li class="nav-item active">
+            {% else %}
+            <li class="nav-item">
+            {% endif %}
               <a class="nav-link" href="/">Accueil
                 <span class="sr-only">(current)</span>
               </a>
             </li>
-            <!--
+            {% if is_granted('ROLE_ADMIN') %}
+            {% if app.request.get('_route') == 'admin_show' %}
+            <li class="nav-item active">
+            {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
+            {% endif %}
+              <a class="nav-link" href="/admin/show">Administration</a>
+              <span class="sr-only">(current)</span>
             </li>
+            {% endif %}
+            <!--
             <li class="nav-item">
               <a class="nav-link" href="#">Pricing</a>
             </li>

@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+use App\Controller\SecurityController;
+
 /**
  * @Route("/registration", name="registration")
  */
@@ -41,8 +43,11 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('authentication_login');
         }
 
+        $pathLogo = SecurityController::getImage('mdl.png');
+
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+            'pathLogo' => $pathLogo,
         ]);
     }
 }
