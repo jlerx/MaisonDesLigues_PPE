@@ -60,16 +60,4 @@ class SecurityController extends AbstractController
         }
         return $this->redirectToRoute('home');
     }
-
-    /**
-     * Fonction qui retourne l'url d'une image dans le dossier Public/Pictures/
-     * Parametre : prendre en compte l'extension a rechercher, exemple : getImage('lorem.png') ou getImage('lorem.jpg') retourne : 'http://mdl.sym/Pictures/lorem.png'
-     */
-    public function getImage($picName){
-        $urlPackage = new UrlPackage(
-            'http://mdl.sym/'
-            ,new StaticVersionStrategy('v1'));
-        $pathLogo = $urlPackage->getUrl('Pictures/'.$picName);
-        return $pathLogo;
-    }
 }

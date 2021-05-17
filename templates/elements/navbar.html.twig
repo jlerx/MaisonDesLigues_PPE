@@ -3,7 +3,7 @@
     
         <!-- Si l'utitisateur est connecté -->
         {% if app.user %}
-          <img src="{{pathLogo}}" style="width:100px" alt="image">
+          <img src="http://mdl.sym/Pictures/mdl.png" style="width:100px" alt="image">
         <a class="navbar-brand" href="#">{{ app.request.server.get('APP_NAME1') }} {{ app.request.server.get('APP_NAME2') }} {{ app.request.server.get('APP_NAME3') }}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -20,6 +20,17 @@
                 <span class="sr-only">(current)</span>
               </a>
             </li>
+
+            {% if app.request.get('_route') == 'atelier' %}
+            <li class="nav-item active">
+            {% else %}
+            <li class="nav-item">
+            {% endif %}
+              <a class="nav-link" href="/atelier">Ateliers
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+
             {% if is_granted('ROLE_ADMIN') %}
             {% if app.request.get('_route') == 'admin_show' %}
             <li class="nav-item active">
@@ -41,7 +52,7 @@
           </ul>
         </div>
         
-        <!-- Sinon pas cpnnecté -->
+        <!-- Sinon pas connecté -->
         {% else %}
           
           <img src="assets/pictures/mdl.png" alt="image">

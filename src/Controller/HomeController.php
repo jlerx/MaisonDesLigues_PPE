@@ -15,10 +15,8 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-        $pathLogo = SecurityController::getImage('mdl.png');
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
-            'pathLogo' => $pathLogo,
         ]);
     }
 }

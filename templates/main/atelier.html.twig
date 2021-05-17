@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ateliers dipsonibles{% endblock %}
+
+{% block body %}
+
+<div class="p-3 text-center">
+<h1>Ateliers dipsonibles</h1>
+</div>
+<table class="table table-bordered table-hover text-center">
+  <thead>
+    <tr>
+      <th scope="col">Numero</th>
+      <th scope="col">Libelle</th>
+      <th scope="col">Place(s)</th>
+      <th scope="col">Thème(s)</th>
+      <th scope="col">Date début</th>
+      <th scope="col">Date fin</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for row in atelier %}
+        <tr>
+          <th scope="row">{{row.id}}</th>
+          <td>{{row.libelle}}</td>
+          <td>{{row.nbPlacesMaxi}}</td>
+          <td>
+            {% for themes in row.getThemes() %}
+                - {{themes.libelle}}<br>
+            {% endfor %}
+          </td>
+          <td>
+            {% for vac in row.getVacations() %}
+                {{vac.dateHeureDebut|date("d/m/Y")}}
+            {% endfor %}
+          </td>
+          <td>
+            {% for vac in row.getVacations() %}
+                {{vac.dateHeureFin|date("d/m/Y")}}
+            {% endfor %}
+          </td>
+        </tr>
+      {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
