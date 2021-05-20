@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ateliers dipsonibles{% endblock %}
+
+{% block body %}
+<div class="p-3 text-center">
+<h1></h1>
+</div>
+<div class="text-center">
+    <div class="d-inline p-2">
+        <div class="d-inline p-2 test"><input type="radio" name="inputRadio" id="atelier" value="atelier" onclick="show1()" checked/>&nbsp;<label for="atelier">Atelier</label></div>
+        <div class="d-inline p-2"><input type="radio" name="inputRadio" id="theme" value="theme" onclick="show2()" />&nbsp;<label for="theme">Theme</label></div>
+        <div class="d-inline p-2"><input type="radio" name="inputRadio" id="vacation" value="vacation" onclick="show3()" />&nbsp;<label for="vacation">Vacation</label></div>
+    </div>
+
+    <div class="mt-4">
+        <div class="" id="divAtelier">{{ form(formAtelier)}}</div>
+        <div class="none" id="divTheme">{{ form(formTheme)}}</div>
+        <div class="none" id="divVacation">{{ form(formVacation)}}</div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+
+        function show1(){
+            document.getElementById("divAtelier").classList.remove("none");
+            document.getElementById("divTheme").classList.add("none");
+            document.getElementById("divVacation").classList.add("none");
+        }
+
+        function show2(){
+            document.getElementById("divAtelier").classList.add("none");
+            document.getElementById("divTheme").classList.remove("none");
+            document.getElementById("divVacation").classList.add("none");
+        }
+
+        function show3(){
+            document.getElementById("divAtelier").classList.add("none");
+            document.getElementById("divTheme").classList.add("none");
+            document.getElementById("divVacation").classList.remove("none");
+        }
+        
+    </script>
+{% endblock %}
