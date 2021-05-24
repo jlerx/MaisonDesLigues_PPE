@@ -3,8 +3,21 @@
 {% block title %}S'enregistrer{% endblock %}
 
 {% block body %}
+<div class="">
+
+<div class="p-3"></div>
+
+{# Message flash d'erreur, le compte n'est pas trouvé via le numero de licence #}
+{% for message in app.flashes('error') %}
+    <div class="flash-error d-flex justify-content-center p-2">
+        <div class="alert alert-danger">
+            {{message}}
+        </div>
+    </div>
+{% endfor %}
+
 <div class="d-flex justify-content-center">
-    <div class="card border-primary" style="padding:10px; width:40%;margin-top:100px">
+    <div class="card border-primary p-3" style="width:40%;">
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}

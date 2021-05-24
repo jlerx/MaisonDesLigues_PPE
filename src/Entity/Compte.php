@@ -28,19 +28,14 @@ class Compte
     private $numLicence;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $password;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $role;
-
-    /**
      * @ORM\OneToOne(targetEntity=Licencie::class, mappedBy="compte", cascade={"persist", "remove"})
      */
     private $licencie;
+
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, mappedBy="compte", cascade={"persist", "remove"})
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -71,30 +66,6 @@ class Compte
         return $this;
     }
 
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    public function getRole(): ?string
-    {
-        return $this->role;
-    }
-
-    public function setRole(string $role): self
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
     public function getLicencie(): ?Licencie
     {
         return $this->licencie;
@@ -113,6 +84,23 @@ class Compte
         }
 
         $this->licencie = $licencie;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): self
+    {
+        // set the owning side of the relation if necessary
+        if ($user->getCompte() !== $this) {
+            $user->setCompte($this);
+        }
+
+        $this->user = $user;
 
         return $this;
     }

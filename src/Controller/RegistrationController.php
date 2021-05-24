@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Compte;
 use App\Repository\UserRepository;
 use App\Form\RegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,6 +41,23 @@ class RegistrationController extends AbstractController
             $user->setActivationToken(md5(uniqid()));
 
             $entityManager = $this->getDoctrine()->getManager();
+            
+            $compte = $entityManager->getRepository(Compte::class)->findOneBy(['numLicence' => $user->getNumLicence()]);
+            if($compte == null){
+
+                $this->addFlash(
+                    'error',
+                    'Le numéro de licence '.$user->getNumLicence().' n\'est associé à aucun compte...' 
+                );
+                return $this->redirectToRoute('registration_register');
+
+                /**
+                // On renvoie une erreur 404
+                throw $this->createNotFoundException('Ce compte n\'exite pas');
+                */
+            }else{
+                $user->setCompte($compte);
+            }
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -49,7 +67,7 @@ class RegistrationController extends AbstractController
                 // On attribue l'expediteur
                 ->setFrom('votre@adresse.fr')
                 // On attrivue le destinataire
-                ->setTo('toto@gmail.com')
+                ->setTo($compte->getEmail())
                 // On crée le texte avec la vue
                 ->setBody(
                     $this->renderView(
@@ -59,6 +77,11 @@ class RegistrationController extends AbstractController
                 )
                 ;
                 $mailer->send($message);
+
+            $this->addFlash(
+                'success',
+                'Votre compte a bien été crée, verifier votre compte, nous vous avons envoyé un mail'
+            );
 
             return $this->redirectToRoute('authentication_login');
         }
@@ -76,18 +99,18 @@ class RegistrationController extends AbstractController
     public function activation($token, UserRepository $users)
     {
         // On recherche si un utilisateur avec ce token existe dans la base de données
-        $user = $user->findOneBy(['activation_token' => $token]);
+        $users = $users->findOneBy(['activation_token' => $token]);
 
         // Si  aucun utilisateur n'est associé à ce token
-        if(!$user){
+        if(!$users){
             // On renvoie une erreur 404
             throw $this->createNotFoundException('Cet utilisateur n\'exite pas');
         }
 
         // On supprime le token
-        $user->setActivationToken(null);
+        $users->setActivationToken(null);
         $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($user);
+        $entityManager->persist($users);
         $entityManager->flush();
 
         // On génère un message

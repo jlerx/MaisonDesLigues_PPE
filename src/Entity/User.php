@@ -49,6 +49,12 @@ class User implements UserInterface
      */
     private $activation_token;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Compte::class, inversedBy="user", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $compte;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -148,6 +154,18 @@ class User implements UserInterface
     public function setActivationToken(?string $activation_token): self
     {
         $this->activation_token = $activation_token;
+
+        return $this;
+    }
+
+    public function getCompte(): ?Compte
+    {
+        return $this->compte;
+    }
+
+    public function setCompte(Compte $compte): self
+    {
+        $this->compte = $compte;
 
         return $this;
     }

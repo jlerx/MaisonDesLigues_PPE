@@ -3,7 +3,7 @@
     
         <!-- Si l'utitisateur est connecté -->
         {% if app.user %}
-          <img src="http://mdl.sym/Pictures/mdl.png" style="width:100px" alt="image">
+          <img src="{{asset('/Pictures/mdl.png')}}" style="width:100px" alt="image">
         <a class="navbar-brand" href="#">{{ app.request.server.get('APP_NAME1') }} {{ app.request.server.get('APP_NAME2') }} {{ app.request.server.get('APP_NAME3') }}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -55,7 +55,7 @@
         <!-- Sinon pas connecté -->
         {% else %}
           
-          <img src="assets/pictures/mdl.png" alt="image">
+          <img src="{{asset('/Pictures/mdl.png')}}" style="width:100px" alt="image">
         <a class="navbar-brand" href="#">{{ app.request.server.get('APP_NAME1') }} {{ app.request.server.get('APP_NAME2') }} {{ app.request.server.get('APP_NAME3') }}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>

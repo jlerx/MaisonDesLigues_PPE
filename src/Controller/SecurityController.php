@@ -21,8 +21,10 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-         if ($this->getUser()) {
+         if ($this->getUser() && $this->getUser()->getActivationToken() == null) {
              return $this->redirectToRoute('home');
+         }elseif($this->getUser() && $this->getUser()->getActivationToken()){
+             $this->redirectToRoute('authentication_login');
          }
 
         // get the login error if there is one
